@@ -1,0 +1,3 @@
+COMMENT:
+The power unit for the values S_client, S_cand and noise is 100mW.
+Hence, a value of 2 means 200mW.
