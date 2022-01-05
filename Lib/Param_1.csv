@@ -1,0 +1,6 @@
+,Value
+S_clients,0.1
+S_cand,2
+gamma,8
+sigma,0.0001
+lambda,10
