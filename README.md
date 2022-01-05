@@ -16,7 +16,7 @@ To generate one of the 3 executables, modify the makefile to compile:
 
 ## Numerical experiments
 
-To run the numerical experiments that are presented in the aforementioned article, execute the following commands:
+To run the numerical experiments that are presented in the aforementioned article, execute the following commands with frequency_number = 3 or 6:
 
 ```
 ./main_milp list_full.txt [frequency_number]
