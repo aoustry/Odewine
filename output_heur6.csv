@@ -27,7 +27,7 @@ optim_instances/Instance_MAP3A_1_2.dat;45;40;120;0.246;120;0.246
 optim_instances/Instance_MAP3A_1_3.dat;45;40;60;0.409;60;0.409
 optim_instances/Instance_MAP3A_2_1.dat;73;62;120;1.084;110;61.591
 optim_instances/Instance_MAP3A_2_2.dat;73;62;1090;1.746;890;4.779
-optim_instances/Instance_MAP3A_2_3.dat;73;62;1500;100.317;1500;160.663
+optim_instances/Instance_MAP3A_2_3.dat;73;62;1500;100.317;110;160.663
 optim_instances/Instance_MAP4A_0_1.dat;26;38;40;0.052;40;0.052
 optim_instances/Instance_MAP4A_0_2.dat;26;38;190;0.085;190;0.085
 optim_instances/Instance_MAP4A_0_3.dat;26;38;40;0.104;40;0.104

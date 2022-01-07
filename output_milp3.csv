@@ -1,6 +1,7 @@
 Channels number:3
 Time limit (s)3600
 Instance name ;|I| ;|J|; CPLEX LB; CPLEX UB; CPLEX time
+optim_instances/Instance_MAP1A_0_1.dat;19;13;30;30;0.595
 optim_instances/Instance_MAP1A_0_2.dat;19;13;230;230;0.086
 optim_instances/Instance_MAP1A_0_3.dat;19;13;30;30;0.616
 optim_instances/Instance_MAP1A_1_1.dat;13;23;20;20;0.842
