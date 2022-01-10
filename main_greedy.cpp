@@ -88,9 +88,16 @@ int main(int argc, char**argv){
     const int color_number = atoi(argv[2]);
     // Parameters
     const float TL = 3600;
+    
+    
+    //File name
+    std::string path = "output/output_greedy";
+    std::string lastName  = std::to_string(color_number);
+    std::string extension = ".csv";
+    std::string fullName = path + lastName + extension;
 
     ofstream output_file;
-    output_file.open ("output_greedy.csv");
+    output_file.open (fullName);
     output_file << "Channels number:"<<color_number<<"\n";
     output_file << "Instance name ;|I| ;|J|;GH1 UB;GH1 time;GH2 UB;GH2 time\n";
     std::ifstream ifs (list, std::ifstream::in);
@@ -103,7 +110,7 @@ int main(int argc, char**argv){
     for (int inst_idx =0; inst_idx<nb_inst; inst_idx++ ){
 
       ifs.getline(buffer,100);
-      output_file.open ("output_greedy.csv",std::ios_base::app);
+      output_file.open (fullName,std::ios_base::app);
       cout << buffer<<"\n";
       SceneInstance SI = SceneInstance(buffer);
       output_file<<buffer<<";"<<SI.n<<";"<<SI.m<<";";

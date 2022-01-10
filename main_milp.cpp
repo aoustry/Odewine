@@ -21,8 +21,14 @@ int main(int argc, char**argv){
     const float TL = 3600;
 
     IloNum C = color_number;
+    
+    std::string path = "output/output_milp";
+    std::string lastName  = std::to_string(color_number);
+    std::string extension = ".csv";
+    std::string fullName = path + lastName + extension;
+    
     ofstream output_file;
-    output_file.open ("output_milp.csv");
+    output_file.open (fullName);
     output_file << "Channels number:"<<color_number<<"\n";
     output_file << "Time limit (s)"<<TL<<"\n";
     output_file << "Instance name ;|I| ;|J|; CPLEX LB; CPLEX UB; CPLEX time\n";
@@ -35,7 +41,7 @@ int main(int argc, char**argv){
     for (int inst_idx =0; inst_idx<nb_inst; inst_idx++ ){
 
                  ifs.getline(buffer,100);
-                 output_file.open ("output_milp.csv",std::ios_base::app);
+                 output_file.open (fullName,std::ios_base::app);
                  cout << buffer<<"\n";
                  SceneInstance SI = SceneInstance(buffer);
                  output_file<<buffer<<";"<<SI.n<<";"<<SI.m<<";";
