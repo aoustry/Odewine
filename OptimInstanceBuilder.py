@@ -32,7 +32,7 @@ class InstanceBuilder():
         self.u = DFCL[:,2]
         self.d = DFCL[:,3]
         
-        DFP = (pandas.read_csv("Lib/Param_"+str(program_param_index)+".csv",index_col=0)).values.astype('float')
+        DFP = (pandas.read_csv("MAPLib/Param_"+str(program_param_index)+".csv",index_col=0)).values.astype('float')
         
         S_clients, S_cand, self.gamma, self.sigma, self.LAMBDA = DFP[:,0]
        
@@ -108,7 +108,7 @@ class InstanceBuilder():
         self.data_file.close()
 
 
-MAPLIST = ["Lib/MAP1","Lib/MAP2","Lib/MAP3","Lib/MAP4","Lib/MAP5","Lib/MAP6"]
+MAPLIST = ["MAPLib/MAP1","MAPLib/MAP2","MAPLib/MAP3","MAPLib/MAP4","MAPLib/MAP5","MAPLib/MAP6"]
 
 for mapname in MAPLIST:
     for i in range(3):
