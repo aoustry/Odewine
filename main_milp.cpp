@@ -38,10 +38,12 @@ int main(int argc, char**argv){
     int nb_inst = atoi(buffer);
     cout<<"Instances number :"<<nb_inst <<"\n";
       float * result;
+      output_file.close();
+
     for (int inst_idx =0; inst_idx<nb_inst; inst_idx++ ){
 
                  ifs.getline(buffer,100);
-                 output_file.open (fullName,std::ios_base::app);
+                 output_file.open(fullName,std::ios_base::app);
                  cout << buffer<<"\n";
                  SceneInstance SI = SceneInstance(buffer);
                  output_file<<buffer<<";"<<SI.n<<";"<<SI.m<<";";
@@ -49,6 +51,7 @@ int main(int argc, char**argv){
                  //  result1 = solve_coherent_MC_agg(SI, TL, C);
 
                  result = solve_coherent_MC(SI, TL, C);
+                 cout << buffer<<" solved \n";
 	         //output_file<<result1[0]<<";"<<result1[1]<<";"<<result1[2]<<";";
                  output_file<<result[0]<<";"<<result[1]<<";"<<result[2]<<"\n";
                  output_file.close();

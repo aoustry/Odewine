@@ -536,7 +536,7 @@ float complete_clients(SceneInstance SI, float TL, int C, int * xstarc)
 
 }
 
-void RH1andRH2(SceneInstance SI, float innerTL, int C, float globalTL, float perturbation, char* fname){
+void RH1andRH2(SceneInstance SI, float innerTL, int C, float globalTL, float perturbation, std::string fname){
   bool bool_complete = true;
   auto start = high_resolution_clock::now();
   int patt [SI.n+SI.m];

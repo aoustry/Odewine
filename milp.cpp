@@ -340,7 +340,7 @@ float * solve_coherent_MC(SceneInstance SI, float TL, int C)
 
 					}
 				}
-        //Autre possibilité
+        //Other possibility
         // for (int k=0; k<m; k++){
         //
 				// 	if (k!=cand){
