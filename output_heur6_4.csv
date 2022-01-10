@@ -1,6 +1,6 @@
 Channels number ;6
 Perturbation : 4
-Instance name ;|I| ;|J|; H-inf value; H-inf time ; H-inf-reg value ; H-inf-reg time 
+Instance name ;|I| ;|J|;RH1 UB;RH1 time;RH2 UB;RH2 time
 optim_instances/Instance_MAP1A_0_1.dat;19;13;30;0.087;30;0.087
 optim_instances/Instance_MAP1A_0_2.dat;19;13;40;0.056;40;0.056
 optim_instances/Instance_MAP1A_0_3.dat;19;13;30;0.055;30;0.055

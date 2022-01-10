@@ -25,7 +25,7 @@ int main(int argc, char**argv){
     output_file.open ("output_heur.csv");
     output_file<<"Channels number ;"<<color_number<<"\n";
     output_file <<"Perturbation : "<<perturbation<<"\n";
-    output_file << "Instance name ;|I| ;|J|; H-inf value; H-inf time ; H-inf-reg value ; H-inf-reg time \n";
+    output_file << "Instance name ;|I| ;|J|;RH1 UB;RH1 time;RH2 UB;RH2 time\n";
 
     // Parameters
     const float globalTL = 3600;

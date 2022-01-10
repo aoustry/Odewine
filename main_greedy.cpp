@@ -92,7 +92,7 @@ int main(int argc, char**argv){
     ofstream output_file;
     output_file.open ("output_greedy.csv");
     output_file << "Channels number:"<<color_number<<"\n";
-    output_file << "Instance name ;|I| ;|J|;GH1 UB; GH1 time;GH2 UB; GH2 time \n";
+    output_file << "Instance name ;|I| ;|J|;GH1 UB;GH1 time;GH2 UB;GH2 time\n";
     std::ifstream ifs (list, std::ifstream::in);
    	char buffer [100];
     ifs.getline(buffer,100);
