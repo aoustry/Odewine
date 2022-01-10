@@ -27,7 +27,7 @@ and
 ```
 and
 ```
-./main_heur_inf test.txt [frequency_number] 20
+./main_heur_inf test.txt [frequency_number] 40
 ```
 
 
