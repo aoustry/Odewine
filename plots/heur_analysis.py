@@ -10,19 +10,33 @@ import matplotlib.pyplot as plt
 import scipy.stats
 import numpy as np
 
-d_3_RH = pandas.read_csv("../output_heur3_4.csv",sep = ";",header=2)
+d_3_RH = pandas.read_csv("../output/output_heur3_4.000000.csv",sep = ";",header=2)
 d_3_RH["Instance name "] = d_3_RH["Instance name "] + "_3channels"
-d_6_RH = pandas.read_csv("../output_heur6_4.csv",sep = ";",header=2)
+d_6_RH = pandas.read_csv("../output/output_heur6_4.000000.csv",sep = ";",header=2)
 d_6_RH["Instance name "] = d_6_RH["Instance name "] + "_6channels"
 d_RH = pandas.concat([d_3_RH,d_6_RH])
 
-d_3_GH = pandas.read_csv("../output_greedy3.csv",sep = ";",header=1)
+d_3_GH = pandas.read_csv("../output/output_greedy3.csv",sep = ";",header=1)
 d_3_GH["Instance name "] = d_3_GH["Instance name "] + "_3channels"
-d_6_GH = pandas.read_csv("../output_greedy6.csv",sep = ";",header=1)
+d_6_GH = pandas.read_csv("../output/output_greedy6.csv",sep = ";",header=1)
 d_6_GH["Instance name "] = d_6_GH["Instance name "] + "_6channels"
 d_GH = pandas.concat([d_3_GH,d_6_GH])
 
 
+d_3_MILP = pandas.read_csv("../output/output_milp3.csv",sep = ";",header=2)
+d_3_MILP["Instance name "] = d_3_MILP["Instance name "] + "_3channels"
+d_6_MILP = pandas.read_csv("../output/output_milp6.csv",sep = ";",header=2)
+d_6_MILP["Instance name "] = d_6_MILP["Instance name "] + "_6channels"
+d_MILP = pandas.concat([d_3_MILP,d_6_MILP])
+
+d_total = pandas.DataFrame()
+d_total["Instance name "] = d_RH["Instance name "]
+d_total["CPLEX time"] = d_MILP[" CPLEX time"]
+d_total["MILP UB"] = d_MILP[" CPLEX UB"]
+d_total["RH UB"] = d_RH["RH2 UB"]
+d_total["GH UB"] = d_GH["GH2 UB"]
+d_total['diff1'] = d_total["MILP UB"]-d_total["RH UB"]
+d_total['diff2'] = d_total["MILP UB"]-d_total["GH UB"]
 
 def comparison1v1UB(serie1,serie2,name_title,name_file):
     print("Descriptive statistics")
@@ -88,7 +102,7 @@ comparison1v1UB(d_RH['RH1 UB'],d_RH['RH2 UB'],"Relative objective gap (%) from R
 print("--------------Time Relax-based-heur--------------")
 comparison1v1time(d_RH['RH1 time'],d_RH['RH2 time'],"Absolute time difference (s) from RH1 to RH2","relax_based_heur_time_comparison")
 print('--------------UB greedy vs relax--------------')
-comparison1v1UB(d_GH['GH2 UB'],d_RH['RH2 UB'],"Relative objective gap (%) from RH2 to GH2","greedy_to_relax_cost_comparison")
+comparison1v1UB(d_GH['GH2 UB'],d_RH['RH2 UB'],"Relative objective gap (%) from GH2 to RH2","greedy_to_relax_cost_comparison")
 comparison1v1UB(d_RH['RH2 UB'],d_GH['GH2 UB'],"Relative objective gap (%) from RH2 to GH2","relax_to_greedy_cost_comparison")
 comparison1v1UBscatter(d_GH['GH2 UB'].values,d_RH['RH2 UB'].values,(d_GH['|I| ']+d_GH['|J|']).values.astype('float'),"Objective cost with GH2","Objective cost with RH2","greedy_to_relax_cost_scatter")
 comparison1v1time(d_GH['GH2 time'],d_RH['RH2 time'],"Absolute time difference (s) from GH2 to RH2","greedy_to_relax_time_comparison")

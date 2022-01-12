@@ -2,8 +2,8 @@ import pandas
 import matplotlib.pyplot as plt
 import numpy as np
 
-D3=pandas.read_csv("../output_milp3.csv",sep = ";",header=2)
-D6=pandas.read_csv("../output_milp6.csv",sep = ";",header=2)
+D3=pandas.read_csv("../output/output_milp3.csv",sep = ";",header=2)
+D6=pandas.read_csv("../output/output_milp6.csv",sep = ";",header=2)
 D6 = D6[D6[' CPLEX UB']!=-1]
 
 "MILP_cardinality_vs_time.png"
@@ -32,10 +32,8 @@ plt.savefig("MILP_time_distribution.png")
 plt.close()
 
 "MILP_time3_vs_time6.png"
-D3bis = D3[D3['Instance name ']!="optim_instances/Instance_MAP6B_2_3.dat"]
-D3bis = D3bis[D3bis['Instance name ']!="optim_instances/Instance_MAP6A_2_3.dat"]
 plt.plot(np.linspace(0.001,3600,1000),np.linspace(0.001,3600,1000),color = 'grey',linestyle="--")
-plt.scatter(D3bis[" CPLEX time"],D6[" CPLEX time"],marker="x",color = 'black')
+plt.scatter(D3[" CPLEX time"],D6[" CPLEX time"],marker="x",color = 'black')
 plt.xlabel("CPLEX time (s) for 3 channels")
 plt.ylabel("CPLEX time (s) for 6 channels")
 plt.xscale("log")
@@ -44,7 +42,7 @@ plt.savefig("MILP_time3_vs_time6.png")
 plt.close()
 
 "MILP_savings_3_to_6.png"
-savings = 100*(D3bis[' CPLEX UB']-D6[' CPLEX UB'])/D3bis[' CPLEX UB']
+savings = 100*(D3[' CPLEX UB']-D6[' CPLEX UB'])/D3[' CPLEX UB']
 hx3, hy3, _ = plt.hist((savings), bins=10,color="grey")
 plt.xlabel("Relative saving (3->6 channels)")
 plt.ylabel("Number of instances")
