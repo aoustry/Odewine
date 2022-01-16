@@ -10,9 +10,9 @@ import matplotlib.pyplot as plt
 import scipy.stats
 import numpy as np
 
-d_3_RH = pandas.read_csv("../output/output_heur3_1.500000.csv",sep = ";",header=2)
+d_3_RH = pandas.read_csv("../output/output_heur3_3.000000.csv",sep = ";",header=2)
 d_3_RH["Instance name "] = d_3_RH["Instance name "] + "_3channels"
-d_6_RH = pandas.read_csv("../output/output_heur6_1.500000.csv",sep = ";",header=2)
+d_6_RH = pandas.read_csv("../output/output_heur6_3.000000.csv",sep = ";",header=2)
 d_6_RH["Instance name "] = d_6_RH["Instance name "] + "_6channels"
 d_RH = pandas.concat([d_3_RH,d_6_RH])
 
@@ -23,6 +23,12 @@ d_6_GH["Instance name "] = d_6_GH["Instance name "] + "_6channels"
 d_GH = pandas.concat([d_3_GH,d_6_GH])
 
 
+
+def histogram(serie):
+    serie = list(serie)
+    serie.sort()
+    L = len(serie)
+    return serie, list(range(1,1+L))
 
 
 def comparison1v1UB(serie1,serie2,name_title,name_file):
@@ -51,13 +57,23 @@ def comparison1v1UB(serie1,serie2,name_title,name_file):
 def time_distribution(serie1,serie2,name):
     L = len(serie1)
     M = max(serie1.max(),serie2.max())
-    hx1, hy1, _ = plt.hist(np.log(serie1+0.001), bins=300,color="grey")
-    cumsum1 = np.cumsum(hx1)
-    hx2, hy2, _ = plt.hist(np.log(serie2+0.001), bins=300,color="grey")
-    cumsum2 = np.cumsum(hx1)
-    plt.close()
-    plt.plot(list(np.exp(hy1[1:]))+[M],list(cumsum1)+[L], color = 'black', linestyle='--', label = name+'1')
-    plt.plot(list(np.exp(hy2[1:]))+[M],list(cumsum2)+[L], color = 'black',  linestyle='-', label = name+'2')
+    x1,y1 = histogram(serie1+0.001)
+    x2,y2 = histogram(serie2+0.001)
+    # hx1, hy1, _ = plt.hist(np.log(serie1+0.001),bins=30000,color = 'black', linestyle='--', label = name+'1')
+    # cumsum1 = np.cumsum(hx1)
+    # hx2, hy2, _ = plt.hist(np.log(serie2+0.001), bins=30000, color = 'black',  linestyle='-', label = name+'2')
+    # cumsum2 = np.cumsum(hx1)
+    # hx1, hy1, _ = plt.hist(serie1+0.001, histtype='step',
+    #                         cumulative=True,bins=3000,color = 'black', linestyle='--', label = name+'1')
+    # hx2, hy2, _ = plt.hist((serie2+0.001),histtype='step',
+    #                        cumulative=True, bins=3000, color = 'black',  linestyle='-', label = name+'2')
+    
+    #plt.close()
+    #plt.plot(list(np.exp(0.5*(hy1[1:]+hy1[:30000])))+[M],list(cumsum1)+[L], color = 'black', linestyle='--', label = name+'1')
+    #plt.plot(list(np.exp(0.5*(hy2[1:]+hy2[:30000])))+[M],list(cumsum2)+[L], color = 'black',  linestyle='-', label = name+'2')
+    plt.plot(x1+[M],y1+[L], color = 'black', linestyle='--', label = name+'1')
+    plt.plot(x2+[M],y2+[L], color = 'black',  linestyle='-', label = name+'2')
+    
     plt.xscale('log')
     plt.legend()
     plt.xlabel("Time (s)")
@@ -79,10 +95,12 @@ def comparison_scatter_gap_and_size(serie1,serie2,size,name_title,name_file):
     
 def comparison1v1time(serie1,serie2,name_title,name_file):
     print("Descriptive statistics")
+    median = np.median((serie2-serie1))
     mean = np.mean((serie2-serie1))
     std = np.std((serie2-serie1))
     print("Max s1 = {0}s".format(serie1.max()))
     print("Max s2 = {0}s".format(serie2.max()))
+    print("median gap = {0}s".format(median))
     print("Mean gap = {0}s".format(mean))
     print("Std gap = {0}s".format(std))
     mannwhitneyutest_result = scipy.stats.mannwhitneyu(serie2,serie1,alternative='greater')
@@ -118,19 +136,19 @@ def comparison1v1UBscatter(serie1,serie2,name_xtitle,name_ytitle,name_file):
     
 
 print("--------------UB Greedy--------------")
-comparison1v1UB(d_GH['GH1 UB'],d_GH['GH2 UB'],"Objective improvement (%) from GH1 to GH2","greedy_cost_comparison")
+comparison1v1UB(d_GH['GH1 UB'],d_GH['GH2 UB'],"Objective improvement (%) from GH1 to GH2","greedycostcomparison")
 comparison1v1UBscatter(d_GH['GH1 UB'],d_GH['GH2 UB'],"Objective value (GH1)","Objective value (GH2)","scatter_greedy")
-comparison_scatter_gap_and_size(d_GH['GH1 UB'],d_GH['GH2 UB'],(d_GH['|I| ']+d_GH['|J|']).values,"Objective improvement (%) from GH1 to GH2","scatter_greedy_gap_vs_size")
+comparison_scatter_gap_and_size(d_GH['GH1 UB'],d_GH['GH2 UB'],(d_GH['|I| ']+d_GH['|J|']).values,"Objective improvement (%) from GH1 to GH2","scattergreedygapvssize")
 
 print("--------------Time Greedy--------------")
-comparison1v1time(d_GH['GH1 time'],d_GH['GH2 time'],"Absolute time difference (s) from GH1 to GH2","greedy_time_comparison")
+comparison1v1time(d_GH['GH1 time'],d_GH['GH2 time'],"Absolute time difference (s) from GH1 to GH2","greedytimecomparison")
 time_distribution(d_GH['GH1 time'],d_GH['GH2 time'],"GH")
 
 print("--------------UB Relax-based-heur--------------")
-comparison1v1UB(d_RH['RH1 UB'],d_RH['RH2 UB'],"Objective improvement (%) from RH1 to RH2","relax_based_heur_cost_comparison")
+comparison1v1UB(d_RH['RH1 UB'],d_RH['RH2 UB'],"Objective improvement (%) from RH1 to RH2","relaxbasedheurcostcomparison")
 comparison1v1UBscatter(d_RH['RH1 UB'],d_RH['RH2 UB'],"Objective value (RH1)","Objective value (RH2)","scatter_relbased")
-comparison_scatter_gap_and_size(d_RH['RH1 UB'],d_RH['RH2 UB'],(d_RH['|I| ']+d_RH['|J|']).values,"Objective improvement (%) from RH1 to RH2","scatter_relbased_gap_vs_size")
+comparison_scatter_gap_and_size(d_RH['RH1 UB'],d_RH['RH2 UB'],(d_RH['|I| ']+d_RH['|J|']).values,"Objective improvement (%) from RH1 to RH2","scatterrelbasedgapvssize")
 
 print("--------------Time Relax-based-heur--------------")
-comparison1v1time(d_RH['RH1 time'],d_RH['RH2 time'],"Absolute time difference (s) from RH1 to RH2","relax_based_heur_time_comparison")
+comparison1v1time(d_RH['RH1 time'],d_RH['RH2 time'],"Absolute time difference (s) from RH1 to RH2","relaxbasedheurtimecomparison")
 time_distribution(d_RH['RH1 time'],d_RH['RH2 time'],"RH")
