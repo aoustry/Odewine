@@ -1,0 +1,26 @@
+\begin{tabular}{lrrrrrrrr}
+\toprule
+                                   Instance name  &  |V| &  CPLEX time &  GH2 time &  RH2 time &  CPLEX LB &  CPLEX UB &  GH2 UB &  RH2 UB \\
+\midrule
+ optim\_instances/Instance\_MAP5A\_1\_1.dat\_3channels &  148 &     3603.05 &     0.632 &    60.893 &   123.750 &       150 &     150 &     150 \\
+ optim\_instances/Instance\_MAP5A\_2\_3.dat\_3channels &  216 &     3614.23 &     2.829 &    65.572 &   177.500 &       190 &     190 &     380 \\
+ optim\_instances/Instance\_MAP6A\_0\_3.dat\_3channels &  176 &     3610.46 &     1.144 &    71.823 &   228.750 &       250 &     280 &    1330 \\
+ optim\_instances/Instance\_MAP6A\_1\_3.dat\_3channels &  267 &     3624.54 &     7.544 &    73.556 &   708.750 &       830 &     870 &    1600 \\
+ optim\_instances/Instance\_MAP6A\_2\_1.dat\_3channels &  356 &     3676.85 &    17.540 &  2008.670 &   347.867 &       400 &     460 &     470 \\
+ optim\_instances/Instance\_MAP6A\_2\_2.dat\_3channels &  356 &     3611.27 &    21.358 &   263.315 &  2854.870 &      3430 &    4430 &    5100 \\
+ optim\_instances/Instance\_MAP6A\_2\_3.dat\_3channels &  356 &     3683.05 &    15.131 &  1032.480 &  1231.250 &     11910 &    2970 &    2140 \\
+ optim\_instances/Instance\_MAP5B\_1\_1.dat\_3channels &  148 &     3602.34 &     0.683 &    60.763 &   123.750 &       150 &     150 &     150 \\
+ optim\_instances/Instance\_MAP6B\_1\_3.dat\_3channels &  267 &     3620.47 &     6.902 &   167.085 &   710.000 &       840 &     870 &    1780 \\
+ optim\_instances/Instance\_MAP6B\_2\_1.dat\_3channels &  356 &     3634.81 &    19.079 &   167.367 &   373.414 &       420 &     460 &     490 \\
+ optim\_instances/Instance\_MAP6B\_2\_2.dat\_3channels &  356 &     3609.56 &    28.649 &   262.902 &  2880.000 &      3210 &    4120 &    5100 \\
+ optim\_instances/Instance\_MAP6B\_2\_3.dat\_3channels &  356 &     3682.50 &    14.889 &   266.759 &  1231.250 &     17920 &    2570 &    5910 \\
+ optim\_instances/Instance\_MAP5A\_1\_1.dat\_6channels &  148 &     3608.80 &     0.816 &     0.635 &   123.750 &       150 &     150 &     150 \\
+ optim\_instances/Instance\_MAP6A\_1\_3.dat\_6channels &  267 &     3663.64 &     8.985 &     3.232 &   708.750 &       720 &     760 &     720 \\
+ optim\_instances/Instance\_MAP6A\_2\_1.dat\_6channels &  356 &     3752.92 &    21.671 &     5.204 &   345.379 &       360 &     400 &     360 \\
+ optim\_instances/Instance\_MAP6A\_2\_2.dat\_6channels &  356 &     3641.93 &    30.526 &   264.578 &  2320.000 &      2330 &    2390 &    2510 \\
+ optim\_instances/Instance\_MAP6A\_2\_3.dat\_6channels &  356 &     4362.18 &    19.537 &     8.947 &  1231.250 &     17920 &    1280 &    1240 \\
+ optim\_instances/Instance\_MAP5B\_1\_1.dat\_6channels &  148 &     3608.71 &     0.807 &     0.653 &   127.500 &       150 &     150 &     150 \\
+ optim\_instances/Instance\_MAP6B\_2\_1.dat\_6channels &  356 &     3729.65 &    23.257 &     3.782 &   371.750 &       390 &     440 &     390 \\
+ optim\_instances/Instance\_MAP6B\_2\_3.dat\_6channels &  356 &     3893.89 &    19.760 &    18.207 &  1231.250 &     17920 &    1280 &    1240 \\
+\bottomrule
+\end{tabular}

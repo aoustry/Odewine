@@ -49,7 +49,15 @@ def sum_of_costs():
     comparison["2"] = d2['RH2 UB']
     comparison["3"] = d3['RH2 UB']
     comparison["4"] = d4['RH2 UB']
-    (comparison.sum()).to_csv("r_calibration/sum_of_costs.csv")
+    d = comparison.sum()
+    mean = d.mean()
+    print(mean)
+    e = 100*(d-mean)/mean
+    df = pandas.DataFrame()
+    df['Sum of obj. value'] = d
+    df['Spread to the mean (%)'] = e    
+    df.to_csv("r_calibration/sum_of_costs.csv")
+    
 
 def comparison1v1UB(serie1,serie2,name_title,name_file):
     print("Descriptive statistics")
