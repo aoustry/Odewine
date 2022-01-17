@@ -51,7 +51,6 @@ def sum_of_costs():
     comparison["4"] = d4['RH2 UB']
     d = comparison.sum()
     mean = d.mean()
-    print(mean)
     e = 100*(d-mean)/mean
     df = pandas.DataFrame()
     df['Sum of obj. value'] = d
@@ -77,22 +76,46 @@ def comparison1v1UB(serie1,serie2,name_title,name_file):
     plt.savefig("r_calibration/"+name_file+".png")
     plt.close()
 
+
+sum_of_costs()
+
+print("RH2 r=1.2 vs r=1.5")
 comparison1v1UB(d12['RH2 UB'],d15['RH2 UB'],"Relative objective gap (%) from RH2 (1.2) to RH2 (1.5)","rh2_1#2_to_1#5_cost_comparison")
+wilcoxontest_result_12_15 = scipy.stats.wilcoxon(d12['RH2 UB'],d15['RH2 UB'])
+print("RH2 r=1.2 vs r=2")
 comparison1v1UB(d12['RH2 UB'],d2['RH2 UB'],"Relative objective gap (%) from RH2 (1.2) to RH2 (2)","rh2_1#2_to_2_cost_comparison")
+wilcoxontest_result_12_2 = scipy.stats.wilcoxon(d12['RH2 UB'],d2['RH2 UB'])
+print("RH2 r=1.2 vs r=3")
+comparison1v1UB(d12['RH2 UB'],d3['RH2 UB'],"Relative objective gap (%) from RH2 (1.2) to RH2 (3)","rh2_1#2_to_3_cost_comparison")
+wilcoxontest_result_12_3 = scipy.stats.wilcoxon(d12['RH2 UB'],d3['RH2 UB'])
+print("RH2 r=1.2 vs r=4")
 comparison1v1UB(d12['RH2 UB'],d4['RH2 UB'],"Relative objective gap (%) from RH2 (1.2) to RH2 (4)","rh2_1#2_to_4_cost_comparison")
+wilcoxontest_result_12_4 = scipy.stats.wilcoxon(d12['RH2 UB'],d4['RH2 UB'])
+print("RH2 r=1.5 vs r=2")
 comparison1v1UB(d15['RH2 UB'],d2['RH2 UB'],"Relative objective gap (%) from RH2 (1.5) to RH2 (2)","rh2_1#5_to_2_cost_comparison")
-comparison1v1UB(d15['RH2 UB'],d4['RH2 UB'],"Relative objective gap (%) from RH2 (1.5) to RH2 (4)","rh2_1#5_to_4_cost_comparison")
-comparison1v1UB(d2['RH2 UB'],d4['RH2 UB'],"Relative objective gap (%) from RH2 (2) to RH2 (4)","rh2_2_to_4_cost_comparison")
-
-
-#Argument no significant statistical difference between the different parameter values.
-mannwhitneyutest_result_15_2 = scipy.stats.mannwhitneyu(d15['RH2 UB'],d2['RH2 UB'])
-mannwhitneyutest_result_15_4 = scipy.stats.mannwhitneyu(d15['RH2 UB'],d4['RH2 UB'])
-mannwhitneyutest_result_2_4 = scipy.stats.mannwhitneyu(d2['RH2 UB'],d4['RH2 UB'])
-
 wilcoxontest_result_15_2 = scipy.stats.wilcoxon(d15['RH2 UB'],d2['RH2 UB'])
+print("RH2 r=1.5 vs r=3")
+comparison1v1UB(d15['RH2 UB'],d3['RH2 UB'],"Relative objective gap (%) from RH2 (1.5) to RH2 (3)","rh2_1#5_to_3_cost_comparison")
+wilcoxontest_result_15_3 = scipy.stats.wilcoxon(d15['RH2 UB'],d3['RH2 UB'])
+print("RH2 r=1.5 vs r=4")
+comparison1v1UB(d15['RH2 UB'],d4['RH2 UB'],"Relative objective gap (%) from RH2 (1.5) to RH2 (4)","rh2_1#5_to_4_cost_comparison")
 wilcoxontest_result_15_4 = scipy.stats.wilcoxon(d15['RH2 UB'],d4['RH2 UB'])
+print("RH2 r=2 vs r=4")
+comparison1v1UB(d2['RH2 UB'],d3['RH2 UB'],"Relative objective gap (%) from RH2 (2) to RH2 (3)","rh2_2_to_3_cost_comparison")
+wilcoxontest_result_2_3 = scipy.stats.wilcoxon(d2['RH2 UB'],d3['RH2 UB'])
+print("RH2 r=2 vs r=4")
+comparison1v1UB(d2['RH2 UB'],d4['RH2 UB'],"Relative objective gap (%) from RH2 (2) to RH2 (4)","rh2_2_to_4_cost_comparison")
 wilcoxontest_result_2_4 = scipy.stats.wilcoxon(d2['RH2 UB'],d4['RH2 UB'])
+print("RH2 r=3 vs r=4")
+comparison1v1UB(d3['RH2 UB'],d4['RH2 UB'],"Relative objective gap (%) from RH2 (3) to RH2 (4)","rh2_3_to_4_cost_comparison")
+wilcoxontest_result_3_4 = scipy.stats.wilcoxon(d3['RH2 UB'],d4['RH2 UB'])
+
+
+
+
+
+
+
 
 
 

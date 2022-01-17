@@ -43,7 +43,7 @@ d_total["RH1 UB"] = d_RH["RH1 UB"]
 d_total["RH1 time"] = d_RH["RH1 time"]
 d_total["RH2 UB"] = d_RH["RH2 UB"]
 d_total["RH2 time"] = d_RH["RH2 time"]
-f = open('../full_results_table.txt','w')
+f = open('../tables/full_results_table.txt','w')
 f.write(d_total.to_markdown())
 f.close()
 d_total['diff RH2'] = d_total["CPLEX UB"]-d_total["RH2 UB"]
@@ -62,22 +62,21 @@ def time_comparison():
     print("Quantiles RH2 times = {0}".format((d_total["RH2 time"]).quantile([0,0.25,0.5,0.75,0.8,0.85,0.9,1])))
     print("Quantiles CPLEX times = {0}".format((d_total["CPLEX time"]).quantile([0,0.25,0.5,0.75,0.8,0.85,0.9,1])))
 
-def histogram(serie):
+def aux_histogram(serie):
     serie = list(serie)
     serie.sort()
     L = len(serie)
     return serie, list(range(1,1+L))
 
 def time_profile():
-    xMilp, yMilp = histogram(d_total["CPLEX time"])
-    xGH, yGH = histogram(d_total["GH time"])
-    xRH, yRH = histogram(d_total["RH time"])
+    xMilp, yMilp = aux_histogram(d_total["CPLEX time"])
+    xGH, yGH = aux_histogram(d_total["GH2 time"])
+    xRH, yRH = aux_histogram(d_total["RH2 time"])
     L = len(xMilp)
     M = max(max(max(xMilp),max(xGH)),max(xRH))
     plt.plot(xGH+[M],yGH+[L], color = 'grey', label = "GH2",linestyle = "--")
     plt.plot(xRH+[M],yRH+[L], color = 'grey', label = "RH2")
     plt.plot(xMilp+[M],yMilp+[L], color = 'black', label = "CPLEX")
-
     plt.xscale('log')
     plt.legend()
     plt.xlabel("Time (s)")
@@ -87,26 +86,22 @@ def time_profile():
     plt.close()
     
 
-def share_instance_good():
+def heuristics_good_instances():
+    print("3-channel configuration: # of instances as good as or better than CPLEX (GH2/RH2)")
     d3_total,d6_total = d_total[:108],d_total[108:]
     N_RH3 = len(d3_total['diff RH2'][d3_total['diff RH2']>=0])
     N_GH3 = len(d3_total['diff GH2'][d3_total['diff GH2']>=0])
-    print(N_RH3,N_GH3)
+    print(N_GH3,N_RH3)
+    print("6-channel configuration: # of instances as good as or better than CPLEX (GH2/RH2)")
     N_RH6 = len(d6_total['diff RH2'][d6_total['diff RH2']>=0])
     N_GH6 = len(d6_total['diff GH2'][d6_total['diff GH2']>=0])
-    print(N_RH6,N_GH6)
-    
-    N_RH3 = len(d3_total['diff RH2'][d3_total['diff RH2']>0])
-    N_GH3 = len(d3_total['diff GH2'][d3_total['diff GH2']>0])
-    print(N_RH3,N_GH3)
-    N_RH6 = len(d6_total['diff RH2'][d6_total['diff RH2']>0])
-    N_GH6 = len(d6_total['diff GH2'][d6_total['diff GH2']>0])
-    print(N_RH6,N_GH6)
+    print(N_GH6,N_RH6)
+   
     
 def table_diff_instances():
     df = d_total[["Instance name ","|V|","CPLEX time","GH2 time", "RH2 time","CPLEX LB","CPLEX UB","GH2 UB", "RH2 UB"]]
     df =df[df['CPLEX LB']<df['CPLEX UB']]
-    f = open('../results_diff_instances.txt','w')
+    f = open('../tables/results_diff_instances.txt','w')
     f.write(df.to_latex(index=False))
     f.close()
     return df
@@ -119,8 +114,7 @@ def comparison_withCPLEX(channels_number):
     elif channels_number == 6:
         serie1,serie2 = serie1[108:],serie2[108:]
     else:
-        assert(False)
-            
+        assert(False)     
     print("Nbr of cases with more than 50%, GH2, RH2 = {0},{1}".format(len(serie1[serie1>=50]),len(serie2[serie2>=50])))
     plt.hist([serie1,serie2], bins=40,color=["grey",'black'],label = ["GH2","RH2"])
     plt.xlabel("Obj. value advantage (in %) of CPLEX over heuristics")
@@ -165,16 +159,13 @@ def comparison1v1time(serie1,serie2,name_title,name_file):
     plt.savefig(name_file+".png")
     plt.close()
 
-def comparison1v1UBscatter(serie1,serie2,sizes,name_xtitle,name_ytitle,name_file):
+def comparison1v1UBscatter(serie1,serie2,name_xtitle,name_ytitle,name_file):
     m = max(serie1.max(),serie2.max())
-    sizes1, sizes2 = sizes[:108], sizes[108:]
     serie1_3channel, serie1_6channel = serie1[:108], serie1[108:]
     serie2_3channel, serie2_6channel = serie2[:108], serie2[108:]
     plt.plot(np.linspace(10,m,1000),np.linspace(10,m,1000),color = 'grey',linestyle="--")
     plt.scatter(serie1_3channel,serie2_3channel,color="grey",label = "3 channels")
     plt.scatter(serie1_6channel,serie2_6channel,color="black",label = "6 channels")
-    #plt.scatter(serie1_3channel,serie2_3channel,s=sizes1,color="grey",label = "3 channels")
-    #plt.scatter(serie1_6channel,serie2_6channel,s=sizes2,color="black",label = "6 channels")
     plt.xlabel(name_xtitle)
     plt.ylabel(name_ytitle)
     plt.xscale('log')
@@ -184,11 +175,7 @@ def comparison1v1UBscatter(serie1,serie2,sizes,name_xtitle,name_ytitle,name_file
     plt.close()
     
 
-
-print('--------------UB greedy vs relax--------------')
-comparison1v1UB(d_GH['GH2 UB'],d_RH['RH2 UB'],"Relative objective gap (%) from GH2 to RH2","greedy_to_relax_cost_comparison")
-comparison1v1UB(d_RH['RH2 UB'],d_GH['GH2 UB'],"Relative objective gap (%) from RH2 to GH2","relax_to_greedy_cost_comparison")
-comparison1v1UB(d_MILP[' CPLEX UB'],d_GH['GH2 UB'],"Relative objective gap (%) from CPLEX to GH2","CPLEX_to_greedy_cost_comparison")
-comparison1v1UB(d_MILP[' CPLEX UB'],d_RH['RH2 UB'],"Relative objective gap (%) from CPLEX to RH2","CPLEX_to_Rh_cost_comparison")
-#comparison1v1UBscatter(d_GH['GH2 UB'].values,d_RH['RH2 UB'].values,(d_GH['|I| ']+d_GH['|J|']).values.astype('float'),"Objective cost with GH2","Objective cost with RH2","greedy_to_relax_cost_scatter")
-#comparison1v1time(d_GH['GH2 time'],d_RH['RH2 time'],"Absolute time difference (s) from GH2 to RH2","greedy_to_relax_time_comparison")
+time_comparison()
+time_profile()
+heuristics_good_instances()
+table_diff_instances()

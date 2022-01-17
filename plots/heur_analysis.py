@@ -10,6 +10,12 @@ import matplotlib.pyplot as plt
 import scipy.stats
 import numpy as np
 
+def aux_histogram(serie):
+    serie = list(serie)
+    serie.sort()
+    L = len(serie)
+    return serie, list(range(1,1+L))
+
 d_3_RH = pandas.read_csv("../output/output_heur3_3.000000.csv",sep = ";",header=2)
 d_3_RH["Instance name "] = d_3_RH["Instance name "] + "_3channels"
 d_6_RH = pandas.read_csv("../output/output_heur6_3.000000.csv",sep = ";",header=2)
@@ -21,15 +27,6 @@ d_3_GH["Instance name "] = d_3_GH["Instance name "] + "_3channels"
 d_6_GH = pandas.read_csv("../output/output_greedy6.csv",sep = ";",header=1)
 d_6_GH["Instance name "] = d_6_GH["Instance name "] + "_6channels"
 d_GH = pandas.concat([d_3_GH,d_6_GH])
-
-
-
-def histogram(serie):
-    serie = list(serie)
-    serie.sort()
-    L = len(serie)
-    return serie, list(range(1,1+L))
-
 
 def comparison1v1UB(serie1,serie2,name_title,name_file):
     print("Descriptive statistics")
@@ -55,13 +52,11 @@ def comparison1v1UB(serie1,serie2,name_title,name_file):
 
 
 def time_distribution(serie1,serie2,name):
-    L = len(serie1)
-    M = max(serie1.max(),serie2.max())
-    x1,y1 = histogram(serie1+0.001)
-    x2,y2 = histogram(serie2+0.001)
+    L,M = len(serie1), max(serie1.max(),serie2.max())
+    x1,y1 = aux_histogram(serie1+0.001)
+    x2,y2 = aux_histogram(serie2+0.001)
     plt.plot(x1+[M],y1+[L], color = 'black', linestyle='--', label = name+'1')
     plt.plot(x2+[M],y2+[L], color = 'black',  linestyle='-', label = name+'2')
-    
     plt.xscale('log')
     plt.legend()
     plt.xlabel("Time (s)")
@@ -70,7 +65,6 @@ def time_distribution(serie1,serie2,name):
     plt.close()
     
 def comparison_scatter_gap_and_size(serie1,serie2,size,name_title,name_file):
-       
     delta = 100*(serie1-serie2)/serie1
     print(scipy.stats.pearsonr(size,delta))
     plt.scatter(size[:108],delta[:108],color="grey",label = "3 channels")
@@ -112,8 +106,6 @@ def comparison1v1UBscatter(serie1,serie2,name_xtitle,name_ytitle,name_file):
     plt.plot(np.linspace(10,m,1000),np.linspace(10,m,1000),color = 'grey',linestyle="--")
     plt.scatter(serie1_3channel,serie2_3channel,color="grey",label = "3 channels")
     plt.scatter(serie1_6channel,serie2_6channel,color="black",label = "6 channels")
-    #plt.scatter(serie1_3channel,serie2_3channel,s=sizes1,color="grey",label = "3 channels")
-    #plt.scatter(serie1_6channel,serie2_6channel,s=sizes2,color="black",label = "6 channels")
     plt.xlabel(name_xtitle)
     plt.ylabel(name_ytitle)
     plt.xscale('log')
