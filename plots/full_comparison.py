@@ -46,20 +46,21 @@ d_total["RH2 time"] = d_RH["RH2 time"]
 f = open('../full_results_table.txt','w')
 f.write(d_total.to_markdown())
 f.close()
-
 d_total['diff RH2'] = d_total["CPLEX UB"]-d_total["RH2 UB"]
 d_total['diff GH2'] = d_total["CPLEX UB"]-d_total["GH2 UB"]
 
 
-"""Time comparison """
-print(scipy.stats.wilcoxon(d_total["RH2 time"],d_total["CPLEX time"]))
-print(scipy.stats.wilcoxon(d_total["GH2 time"],d_total["RH2 time"]))
-print(len(d_total[d_total["GH2 time"]<=1]),len(d_total[d_total["RH2 time"]<=1]),len(d_total[d_total["CPLEX time"]<=1]))
-print(d_total["GH2 time"].mean(),d_total["RH2 time"].mean(),d_total["CPLEX time"].mean())
-print(d_total["GH2 time"].std(),d_total["RH2 time"].std(),d_total["CPLEX time"].std())
-print("Quantiles GH2 times = {0}".format((d_total["GH2 time"]).quantile([0,0.25,0.5,0.75,0.8,0.85,0.9,1])))
-print("Quantiles RH2 times = {0}".format((d_total["RH2 time"]).quantile([0,0.25,0.5,0.75,0.8,0.85,0.9,1])))
-print("Quantiles CPLEX times = {0}".format((d_total["CPLEX time"]).quantile([0,0.25,0.5,0.75,0.8,0.85,0.9,1])))
+
+def time_comparison():
+    """Time comparison """
+    print("RH2 vs CPLEX time",scipy.stats.wilcoxon(d_total["RH2 time"],d_total["CPLEX time"]))
+    print("GH2 vs RH2 time",scipy.stats.wilcoxon(d_total["GH2 time"],d_total["RH2 time"]))
+    print("Nbr of instances below 1s, GH2/RH2/CPLEX",len(d_total[d_total["GH2 time"]<=1]),len(d_total[d_total["RH2 time"]<=1]),len(d_total[d_total["CPLEX time"]<=1]))
+    print("Time average, GH2/RH2/CPLEX",d_total["GH2 time"].mean(),d_total["RH2 time"].mean(),d_total["CPLEX time"].mean())
+    print("Time std, GH2/RH2/CPLEX",d_total["GH2 time"].std(),d_total["RH2 time"].std(),d_total["CPLEX time"].std())
+    print("Quantiles GH2 times = {0}".format((d_total["GH2 time"]).quantile([0,0.25,0.5,0.75,0.8,0.85,0.9,1])))
+    print("Quantiles RH2 times = {0}".format((d_total["RH2 time"]).quantile([0,0.25,0.5,0.75,0.8,0.85,0.9,1])))
+    print("Quantiles CPLEX times = {0}".format((d_total["CPLEX time"]).quantile([0,0.25,0.5,0.75,0.8,0.85,0.9,1])))
 
 def histogram(serie):
     serie = list(serie)

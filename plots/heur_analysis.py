@@ -59,18 +59,6 @@ def time_distribution(serie1,serie2,name):
     M = max(serie1.max(),serie2.max())
     x1,y1 = histogram(serie1+0.001)
     x2,y2 = histogram(serie2+0.001)
-    # hx1, hy1, _ = plt.hist(np.log(serie1+0.001),bins=30000,color = 'black', linestyle='--', label = name+'1')
-    # cumsum1 = np.cumsum(hx1)
-    # hx2, hy2, _ = plt.hist(np.log(serie2+0.001), bins=30000, color = 'black',  linestyle='-', label = name+'2')
-    # cumsum2 = np.cumsum(hx1)
-    # hx1, hy1, _ = plt.hist(serie1+0.001, histtype='step',
-    #                         cumulative=True,bins=3000,color = 'black', linestyle='--', label = name+'1')
-    # hx2, hy2, _ = plt.hist((serie2+0.001),histtype='step',
-    #                        cumulative=True, bins=3000, color = 'black',  linestyle='-', label = name+'2')
-    
-    #plt.close()
-    #plt.plot(list(np.exp(0.5*(hy1[1:]+hy1[:30000])))+[M],list(cumsum1)+[L], color = 'black', linestyle='--', label = name+'1')
-    #plt.plot(list(np.exp(0.5*(hy2[1:]+hy2[:30000])))+[M],list(cumsum2)+[L], color = 'black',  linestyle='-', label = name+'2')
     plt.plot(x1+[M],y1+[L], color = 'black', linestyle='--', label = name+'1')
     plt.plot(x2+[M],y2+[L], color = 'black',  linestyle='-', label = name+'2')
     

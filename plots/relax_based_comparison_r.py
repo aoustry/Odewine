@@ -97,22 +97,3 @@ wilcoxontest_result_2_4 = scipy.stats.wilcoxon(d2['RH2 UB'],d4['RH2 UB'])
 
 
 
-# def plots():
-#     a = 100*(d2['RH2 UB'] - d15['RH2 UB'])/(d15['RH2 UB']+d2['RH2 UB']+d4['RH2 UB'])
-#     b = 100*(d2['RH2 UB'] - d4['RH2 UB'])/(d15['RH2 UB']+d2['RH2 UB']+d4['RH2 UB'])
-#     c = 100*(d4['RH2 UB'] - d15['RH2 UB'])/(d15['RH2 UB']+d2['RH2 UB']+d4['RH2 UB'])
-#     #c = d2['RH2 UB'] - d4['RH2 UB']
-#     hx2_to4, hy2_to4, _ = plt.hist((b[b!=0]), bins=20,color="grey")
-#     plt.xlabel("Relative gap (%)")
-#     plt.ylabel("Number of instances")
-#     plt.savefig("RELAXHEUR_savings_param2_to_4.png")
-#     plt.close()
-#     hx2_to15, hy2_to15, _ = plt.hist((a[a!=0]), bins=20,color="grey")
-#     plt.xlabel("Relative gap (%)")
-#     plt.ylabel("Number of instances")
-#     plt.savefig("RELAXHEUR_savings_param2_to_1#5.png")
-#     plt.close()
-#     atilde,btilde,ctilde = a[a!=0],b[b!=0],c[c!=0]
-#     print(3*a.mean(),3*atilde.median())
-#     print(3*b.mean(),3*btilde.median())
-#     print(3*c.mean(),3*ctilde.median())
