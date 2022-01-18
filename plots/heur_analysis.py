@@ -69,7 +69,7 @@ def comparison_scatter_gap_and_size(serie1,serie2,size,name_title,name_file):
     print(scipy.stats.pearsonr(size,delta))
     plt.scatter(size[:108],delta[:108],color="grey",label = "3 channels")
     plt.scatter(size[108:],delta[108:],color="black",label = "6 channels")
-    plt.xlabel("Instance size |I| + |J|")
+    plt.xlabel("Instance size |V|")
     plt.ylabel(name_title)
     plt.legend()
     plt.savefig(name_file+".png")
